@@ -1,0 +1,36 @@
+# --------------------------------------------------------------------------
+# Systemd service definition for the cm4io_rtcctl service
+#
+# Author: Bernhard Bablok
+# License: GPL3
+#
+# Website: https://github.com/bablokb/cm4io_rtcctl
+#
+# --------------------------------------------------------------------------
+
+[Unit]
+Description=Maintain PCF85063A
+DefaultDependencies=no
+After=sysinit.target local-fs.target
+Before=basic.target shutdown.target
+Conflicts=shutdown.target
+ 
+[Service]
+Type=oneshot
+RemainAfterExit=true
+# if not connected to the internet
+#ExecStart=/usr/local/sbin/cm4io_rtcctl.py set sys
+
+# clear any fired alarms, remove pending alarms
+# Note: don't clear the alarm if you need this info, e.g.
+#       to distinguish between automatic and manual boot
+ExecStart=/usr/local/sbin/cm4io_rtcctl.py alarm clear
+ExecStart=/usr/local/sbin/cm4io_rtcctl.py alarm off
+
+#execute a script, e.g. setting the next wakeup-alarm
+#or synchronizing the RTC-date from the system-date
+#ExecStop=my_special_script
+#ExecStop=/usr/local/sbin/cm4io_rtcctl.py set date
+
+[Install]
+WantedBy=basic.target
