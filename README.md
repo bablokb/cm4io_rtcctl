@@ -5,8 +5,10 @@ This project implements a control script for the RTC of the Raspberry Pi CM4IO
 and similar boards that use the same design, e.g. Cytron's CM4 Maker Board
 or Waveshare's CM4-boards.
 
-The script runs in userspace. It will only work if the kernel is not in
-control of the RTC, i.e. there is no overlay configured for the PCF85063A.
+The script is motivated by the fact that the kernel cannot control the
+alarm-settings of the RTC. The script runs in userspace. It will only work
+if the kernel is not in control of the RTC, i.e. there is no overlay
+configured for the PCF85063A.
 
 
 Software
