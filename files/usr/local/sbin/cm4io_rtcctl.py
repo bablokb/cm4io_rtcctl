@@ -146,7 +146,7 @@ def set(rtc,argv):
     dateString = dateString + " 00:00:00"
 
   # parse string and check if we have six items
-  dateParts= re.split('\.|/|:| ',dateString)
+  dateParts= re.split(r'\.|/|:| ',dateString)
   count = len(dateParts)
   if count < 5 or count > 6:
     print("illegal datetime format!")
