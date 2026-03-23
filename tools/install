@@ -49,19 +49,19 @@ install_files() {
 # --- configure system   ----------------------------------------------------
 
 configure_system() {
-  if ! grep -q "^dtparam=i2c_arm=on" /boot/config.txt; then
-    echo -e "[INFO] configuring /boot/config.txt" 2>&1
-    echo "dtparam=i2c_arm=on" >> /boot/config.txt
+  if ! grep -q "^dtparam=i2c_arm=on" /boot/firmware/config.txt; then
+    echo -e "[INFO] configuring /boot/firmware/config.txt" 2>&1
+    echo "dtparam=i2c_arm=on" >> /boot/firmware/config.txt
   fi
 
-  if ! grep -q "^dtparam=i2c_vc=on" /boot/config.txt; then
-    echo -e "[INFO] configuring /boot/config.txt" 2>&1
-    echo "dtparam=i2c_vc=on" >> /boot/config.txt
+  if ! grep -q "^dtparam=i2c_vc=on" /boot/firmware/config.txt; then
+    echo -e "[INFO] configuring /boot/firmware/config.txt" 2>&1
+    echo "dtparam=i2c_vc=on" >> /boot/firmware/config.txt
   fi
 
-  if grep -q "^dtoverlay=i2c-rtc,pcf85063a" /boot/config.txt; then
-    echo -e "[INFO] configuring /boot/config.txt" 2>&1
-    sed -i -e 's/dtoverlay=i2c-rtc,pcf85063a/#dtoverlay=i2c-rtc,pcf85063a/' /boot/config.txt
+  if grep -q "^dtoverlay=i2c-rtc,pcf85063a" /boot/firmware/config.txt; then
+    echo -e "[INFO] configuring /boot/firmware/config.txt" 2>&1
+    sed -i -e 's/dtoverlay=i2c-rtc,pcf85063a/#dtoverlay=i2c-rtc,pcf85063a/' /boot/firmware/config.txt
   fi
 
   if ! grep -q "^i2c-dev" /etc/modules; then
