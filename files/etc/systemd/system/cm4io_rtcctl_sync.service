@@ -1,24 +1,24 @@
 # --------------------------------------------------------------------------
-# Systemd service definition for the cm4io_rtcctl service
+# Systemd service definition: wait for time synchronization and then set
+# rtc time. This also updates the rtc again during shutdown.
 #
 # Author: Bernhard Bablok
 # License: GPL3
 #
 # Website: https://github.com/bablokb/cm4io_rtcctl
-#
 # --------------------------------------------------------------------------
 
 [Unit]
 Description=Maintain PCF85063A
-DefaultDependencies=no
-After=sysinit.target local-fs.target
-Before=basic.target shutdown.target
+After=time-sync.target
+Wants=time-sync.target
 Conflicts=shutdown.target
  
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=/usr/local/sbin/cm4io_rtcctl.on_boot.py
+ExecStart=/usr/local/sbin/cm4io_rtcctl.py set date
+ExecStop=/usr/local/sbin/cm4io_rtcctl.py set date
 
 [Install]
 WantedBy=basic.target
